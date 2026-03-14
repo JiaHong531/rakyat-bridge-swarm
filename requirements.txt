@@ -1,0 +1,16 @@
+# --- Frontend / UI ---
+streamlit>=1.32.0          # The glass brain UI
+
+# --- AI & Agent Framework ---
+google-generativeai>=0.4.0 # Google ADK & core Gemini models
+pydantic>=2.6.0            # Strict data validation for Agent outputs
+
+# --- Model Context Protocol (MCP) ---
+mcp>=0.1.0                 # Standard Model Context Protocol SDK
+
+# --- Local RAG & Vector Search ---
+qdrant-client>=1.8.0       # Local vector database for unstructured policies
+sentence-transformers>=2.5 # Local embeddings for hybrid search
+
+# --- Environment Management ---
+python-dotenv>=1.0.0       # Secures API keys locally
