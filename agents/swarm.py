@@ -54,7 +54,7 @@ class RakyatSwarm:
         api_key = os.environ.get("GOOGLE_API_KEY")
         print(f"[Debug] Using API key: {api_key[:10]}...")
         self.client = genai.Client(api_key=api_key)
-        self.model_name = 'gemini-2.5-flash-lite-preview-06-17'
+        self.model_name = 'gemini-2.5-flash'
         self.config = types.GenerateContentConfig()
 
     # ------------------------------------------------------------------
