@@ -12,7 +12,7 @@ RakyatBridge is an autonomous, multi-agent system designed to bridge the **"Info
 
 ## 🧠 System Architecture Diagram (A2A Flow)
 
-*Dotted lines = **Agentic Recovery Loop**. When the AI encounters unknown slang, it does not hallucinate — it autonomously pauses, logs a reasoning trace, and calls a local MCP dictionary tool to recover before proceeding.*
+*Dotted lines = **Agentic Recovery Loop**. When the AI encounters unknown slang, it does not hallucinate, it autonomously pauses, logs a reasoning trace, and calls a local MCP dictionary tool to recover before proceeding.*
 
 ```mermaid
 graph TD
@@ -48,19 +48,19 @@ graph TD
 
 ## 🤖 Agent Profiles
 
-### 🛡️ Agent 0 — The Guardrail
+### 🛡️ Agent 0 - The Guardrail
 | Field | Detail |
 |---|---|
 | **Role** | Safety classifier and gatekeeper |
 | **Trigger** | Every query before any agent runs |
-| **Layer 1** | Rule-based keyword filter (instant, zero LLM cost) — blocks known injection phrases like "abaikan arahan", "ignore previous", "jailbreak" |
-| **Layer 2** | LLM semantic classifier using `system_instruction` — detects subtle off-topic or adversarial queries |
+| **Layer 1** | Rule-based keyword filter (instant, zero LLM cost) which blocks known injection phrases like "abaikan arahan", "ignore previous", "jailbreak" |
+| **Layer 2** | LLM semantic classifier using `system_instruction` which detects subtle off-topic or adversarial queries |
 | **Fail Safe** | If JSON response is unparseable, defaults to UNSAFE (blocks) |
 | **Output** | Dialect-appropriate rejection message per threat type |
 
 ---
 
-### 🗣️ Agent 1A — The Linguist
+### 🗣️ Agent 1A - The Linguist
 | Field | Detail |
 |---|---|
 | **Role** | Dialect-to-formal-Malay translator |
@@ -72,19 +72,19 @@ graph TD
 
 ---
 
-### 🔍 Agent 2 — The Researcher
+### 🔍 Agent 2 - The Researcher
 | Field | Detail |
 |---|---|
 | **Role** | Government policy retrieval agent |
 | **Step 1** | Extracts core search keyword from formal query |
-| **Step 2** | Calls `tool_policy_search` — BM25Okapi probabilistic RAG over `unstructured_policies.txt` |
-| **RAG Method** | BM25 (Best Match 25) — scores paragraphs by term frequency × inverse document frequency |
+| **Step 2** | Calls `tool_policy_search`: BM25Okapi probabilistic RAG over `unstructured_policies.txt` |
+| **RAG Method** | BM25 (Best Match 25): scores paragraphs by term frequency × inverse document frequency |
 | **MCP Tool** | `tool_policy_search` |
 | **Output** | Top 3 ranked policy paragraphs with BM25 relevance scores |
 
 ---
 
-### 📝 Agent 3 — The Simplifier
+### 📝 Agent 3 - The Simplifier
 | Field | Detail |
 |---|---|
 | **Role** | Policy synthesizer and plain-language writer |
@@ -94,7 +94,7 @@ graph TD
 
 ---
 
-### 🔄 Agent 1B — The Linguist Reverse
+### 🔄 Agent 1B - The Linguist Reverse
 | Field | Detail |
 |---|---|
 | **Role** | Formal-Malay-to-dialect translator |
@@ -178,10 +178,10 @@ rank-bm25
 ---
 
 ## 🛡️ Safety Features
-- **Dual-layer guardrail** — rule-based + LLM semantic classifier
-- **Fail-safe default** — unparseable responses are blocked, not passed
-- **Threat-typed rejections** — `PROMPT_INJECTION`, `HACK_ATTEMPT`, `DATA_BREACH`, `ABUSE`, `OFF_TOPIC`
-- **No hallucination on unknown slang** — recovery loop forces MCP lookup instead of guessing
+- **Dual-layer guardrail**: rule-based + LLM semantic classifier
+- **Fail-safe default**: unparseable responses are blocked, not passed
+- **Threat-typed rejections**: `PROMPT_INJECTION`, `HACK_ATTEMPT`, `DATA_BREACH`, `ABUSE`, `OFF_TOPIC`
+- **No hallucination on unknown slang**: recovery loop forces MCP lookup instead of guessing
 
 ---
 
