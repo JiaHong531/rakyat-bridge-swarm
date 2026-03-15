@@ -6,7 +6,7 @@
 **The Boss Raid | Gemini Nexus: The Agentverse | 24-Hour Virtual Hackathon**
 **Track A: Intelligence Bureau — Strategic Research Swarm**
 
-RakyatBridge is an autonomous, multi-agent system designed to bridge the **"Information Gap"** in Malaysian public services. It accepts unstructured local dialects (Informal Malay, Kedah Dialect, SMS slang), translates them using a dual-layer NLP pipeline, securely retrieves complex government policies via local MCP servers using **BM25 probabilistic RAG**, and recursively simplifies the results to a 5th-grade reading level — then translates the answer *back* into the citizen's original dialect.
+RakyatBridge is an autonomous, multi-agent system designed to bridge the **"Information Gap"** in Malaysian public services. It accepts unstructured local dialects (Informal Malay, Kedah Dialect, SMS slang), translates them using a dual-layer NLP pipeline, securely retrieves complex government policies via local MCP servers using **BM25 probabilistic RAG**, and recursively simplifies the results to a 5th-grade reading level, then translates the answer *back* into the citizen's original dialect.
 
 ---
 
