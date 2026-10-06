@@ -54,7 +54,7 @@ class RakyatSwarm:
         api_key = os.environ.get("GOOGLE_API_KEY")
         print(f"[Debug] Using API key: {api_key[:10]}...")
         self.client = genai.Client(api_key=api_key)
-        self.model_name = 'gemini-2.5-flash'
+        self.model_name = 'gemini-3.5-flash-lite'
         self.config = types.GenerateContentConfig()
 
     # ------------------------------------------------------------------
@@ -107,7 +107,7 @@ class RakyatSwarm:
     def agent_0_guardrail(self, user_input):
         print("\n[Agent 0: Guardrail] Running safety classification...")
 
-        # Step 1: Rule-based pre-check (instant, no LLM cost)
+        # Layer 1: Rule-based pre-check (instant, no LLM cost)
         INJECTION_KEYWORDS = [
             "ignore previous", "ignore all", "abaikan arahan",
             "forget your role", "you are now", "anda bukan lagi",
@@ -124,7 +124,7 @@ class RakyatSwarm:
                     "threat_type": "PROMPT_INJECTION"
                 }
 
-        # Step 2: LLM-based semantic classification for subtler attacks
+        # Layer 2: LLM-based semantic classification for subtler attacks
         response_text = self._call_model(user_input, system_prompt=GUARDRAIL_SYSTEM_PROMPT)
 
         try:
@@ -188,8 +188,12 @@ class RakyatSwarm:
     def agent_2_researcher(self, formal_query):
         print("\n[Agent 2: The Researcher] Searching government policies via MCP...")
 
-        keyword_prompt = f"""Extract one core search keyword (like 'B40', 'warga emas', 'RM500', 'bantuan')
-        from this query: '{formal_query}'. Output ONLY the keyword, nothing else."""
+        keyword_prompt = f"""Extract the most specific search keyword from this formal Malay query.
+        Prefer specific terms like 'warga emas', 'OKU', 'B40', 'STR', 'bantuan warga emas', 'klinik', 
+        'sekolah', 'pencen', 'KWSP', 'kurang upaya', 'mobility', 'kesihatan'
+        over generic words like 'bantuan' or 'maklumat'.
+        Query: '{formal_query}'
+        Output ONLY the keyword, nothing else."""
 
         keyword = self._call_model(keyword_prompt)
         print(f"[Trace] Executing MCP Policy Search for keyword: '{keyword}'...")

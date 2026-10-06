@@ -108,7 +108,7 @@ def tool_policy_search(keyword: str) -> str:
         )
 
         # Filter out zero-score results (no relevance at all)
-        top_results = [(i, s) for i, s in ranked[:5] if s > 0]
+        top_results = [(i, s) for i, s in ranked[:3]]
 
         if not top_results:
             return f"[MCP Search Error] No relevant policy found for keyword: '{keyword}'"
